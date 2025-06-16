@@ -43,11 +43,13 @@ GreenThumb's Crop Yield Estimation feature helps farmers and agricultural analys
 ## 🖼️ Screenshots
 
 > UI Preview of the Crop Price Estimation & Dashboard
-![Screenshot 2025-06-16 152301](https://github.com/user-attachments/assets/408c4826-0a06-4bc9-9744-65f267a74088)
-![Screenshot 2025-06-16 152243](https://github.com/user-attachments/assets/7ba8a276-c419-4866-86a9-bfdb85df049b)
-![Screenshot 2025-06-16 152224](https://github.com/user-attachments/assets/9de1d26e-867f-4086-ad95-de0f27a980d7)
-![Screenshot 2025-06-16 152209](https://github.com/user-attachments/assets/c07f55e4-6065-445b-8bd5-3c21e21d5082)
-![Screenshot 2025-06-15 232136](https://github.com/user-attachments/assets/fb3b1aad-5208-48fe-8ca0-0b603493d933)
+
+![Screenshot 2025-06-16 152301](https://github.com/user-attachments/assets/b4ac3b70-0b0c-4c8a-a149-392ae2984f8f)
+![Screenshot 2025-06-16 152243](https://github.com/user-attachments/assets/7cb36210-8af3-44cb-aab5-716ed5964ab2)
+![Screenshot 2025-06-16 152224](https://github.com/user-attachments/assets/c941c9b9-303e-4915-8cf0-e85af90d9ecd)
+![Screenshot 2025-06-16 152209](https://github.com/user-attachments/assets/c8472209-d12a-4f39-b258-b3027aa924b4)
+![Screenshot 2025-06-15 232136](https://github.com/user-attachments/assets/f1478aa0-4bcc-42a2-914d-68b7ade9eacd)
+
 
 
 
