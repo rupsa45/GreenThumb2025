@@ -18,19 +18,17 @@ import {
   getCropDetails,
   getFertilizer,
 } from "../apis/crop.api";
-import { district, season } from "../utils/dummyData";
+import { districtData, season } from "../utils/dummyData";
 
 const CropDetails = () => {
-  const { 
-    crop, 
-    state : state_name
-  } = useParams();
+  const { crop, state: state_name } = useParams();
   const [cropDetails, setCropDetails] = useState(null);
   const [fertilizer, setFertilizer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedSeason, setSelectedSeason] = useState("");
+  const [district, setDistrict] = useState([]);
 
   // Estimation states
   const [selectedOption, setSelectedOption] = useState("");
@@ -65,36 +63,45 @@ const CropDetails = () => {
     fetchCropDetails();
   }, [crop]);
 
+  useEffect(() => {
+    if (state_name) {
+      const filteredDistricts = districtData.filter(
+        (d) => d.stateName.toLowerCase() === state_name.toLowerCase()
+      );
+
+      // ✅ Debug logs
+      console.log("State from URL:", state_name);
+      console.log("Filtered Districts:", filteredDistricts);
+
+      setDistrict(filteredDistricts);
+    }
+  }, [state_name]);
+
   const handleEstimation = async () => {
-  if (!selectedDistrict || !selectedSeason) return;
+    if (!selectedDistrict || !selectedSeason) return;
 
-  setEstimationLoading(true);
-  try {
-    const res = await fetchProdPrediction(
-      state_name,
-      selectedDistrict,
-      cropDetails.crop_details.crop,
-      selectedSeason
-    );
+    setEstimationLoading(true);
+    try {
+      const res = await fetchProdPrediction(
+        state_name,
+        selectedDistrict,
+        cropDetails.crop_details.crop,
+        selectedSeason
+      );
 
-    setEstimationResult(res);
-    console.log(res);
-    
-  } catch (err) {
-    console.error("Error fetching estimation:", err);
-  } finally {
-    setEstimationLoading(false);
-  }
-};
+      setEstimationResult(res);
+      console.log(res);
+    } catch (err) {
+      console.error("Error fetching estimation:", err);
+    } finally {
+      setEstimationLoading(false);
+    }
+  };
   // console.log("cropDetails:", cropDetails);
-
-
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!cropDetails) return <p>No details available.</p>;
-
-  
 
   return (
     <div>
@@ -196,9 +203,7 @@ const CropDetails = () => {
                       </Label>
                       <Input
                         id="state"
-                        value={capitalizeFirstLetter(
-                          state_name
-                        )}
+                        value={capitalizeFirstLetter(state_name)}
                         disabled
                         className="bg-gray-100"
                       />
@@ -237,9 +242,9 @@ const CropDetails = () => {
                           {district.map((districtSeason, index) => (
                             <SelectItem
                               key={index}
-                              value={districtSeason.district}
+                              value={districtSeason.districts}
                             >
-                              {districtSeason.district}
+                              {districtSeason.districts}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -275,7 +280,9 @@ const CropDetails = () => {
 
                   <Button
                     onClick={handleEstimation}
-                     disabled={!selectedDistrict || !selectedSeason || estimationLoading}
+                    disabled={
+                      !selectedDistrict || !selectedSeason || estimationLoading
+                    }
                     className="w-full bg-purple-600 hover:bg-purple-700"
                   >
                     {estimationLoading ? "Calculating..." : "Get Estimation"}

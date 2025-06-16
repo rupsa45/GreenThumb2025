@@ -60,11 +60,11 @@ const WeatherTab = ({
                       {weatherData.location.country}
                     </p>
                   </div>
-                  <div className="text-6xl">
+                  {/* <div className="text-6xl">
                     {getWeatherIcon(
                       weatherData.current?.condition?.text?.toLowerCase()
                     )}
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Temperature Display */}

@@ -73,7 +73,7 @@ const CropRecommendation = ({state}) => {
     }
 
     if (!temperature || !humidity || !rainfall) {
-      setError("Environmental data not loaded.");
+      setError("Enter the location.");
       return;
     }
 
@@ -125,7 +125,7 @@ const CropRecommendation = ({state}) => {
           <h2
             className="
                text-2xl md:text-3xl font-bold text-green-900 mb-8 font-serif text-center
-          "
+            "
           >
             Crop Recommendation System
           </h2>

@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 const CostPrediction = () => {
   const [priceData, setPriceData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { state} = useLocation(); // ✅ get the state
+  const { state } = useLocation(); // ✅ get the state
   const { crop } = useParams();
 
   useEffect(() => {
@@ -89,118 +89,122 @@ const CostPrediction = () => {
   //if (loading) return <p>Loading market data...</p>
 
   return (
-    <div className="space-y-10">
-      {priceData.map((data, index) => {
-        const priceTrend = getPriceTrend(
-          data.modal_price,
-          data.min_price,
-          data.max_price
-        );
+    <div>
+      <div className="space-y-10 max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2  gap-6">
+        {priceData.map((data, index) => {
+          const priceTrend = getPriceTrend(
+            data.modal_price,
+            data.min_price,
+            data.max_price
+          );
 
-        return (
-          <Card key={index}>
-            <CardHeader className="bg-gradient-to-r from-green-500 to-green-400 p-4">
-              <div className="flex items-center justify-between text-white">
-                <div className="flex items-center gap-2">
-                  <IndianRupee className="w-5 h-5" />
-                  <h2 className="text-xl font-semibold">{`${data.commodity} Price - ${data.market}`}</h2>
+          return (
+            <Card key={index}>
+              <CardHeader className="bg-gradient-to-r from-green-500 to-green-400 p-4">
+                <div className="flex items-center justify-between text-white">
+                  <div className="flex items-center gap-2">
+                    <IndianRupee className="w-5 h-5" />
+                    <h2 className="text-xl font-semibold">{`${data.commodity} Price - ${data.market}`}</h2>
+                  </div>
+                  <Badge
+                    variant="secondary"
+                    className="bg-white/20 text-white border-white/30"
+                  >
+                    {formatDate(data.arrival_date)}
+                  </Badge>
                 </div>
-                <Badge
-                  variant="secondary"
-                  className="bg-white/20 text-white border-white/30"
-                >
-                  {formatDate(data.arrival_date)}
-                </Badge>
-              </div>
-            </CardHeader>
+              </CardHeader>
 
-            <CardContent className="p-6  space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <InfoCard
-                  icon={MapPin}
-                  label="District & Market"
-                  value={`${data.district} - ${data.market}`}
-                />
-                <InfoCard icon={Sprout} label="Variety" value={data.variety} />
-              </div>
+              <CardContent className="p-6  space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <InfoCard
+                    icon={MapPin}
+                    label="District & Market"
+                    value={`${data.district} - ${data.market}`}
+                  />
+                  <InfoCard
+                    icon={Sprout}
+                    label="Variety"
+                    value={data.variety}
+                  />
+                </div>
 
-              <div className="bg-gradient-to-r from-green-600 to-green-500 rounded-xl p-6 text-white">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm opacity-90 mb-1">Modal Price</div>
-                    <div className="text-3xl font-bold">
-                      {formatPrice(data.modal_price)}
+                <div className="bg-gradient-to-r from-green-600 to-green-500 rounded-xl p-6 text-white">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm opacity-90 mb-1">Modal Price</div>
+                      <div className="text-3xl font-bold">
+                        {formatPrice(data.modal_price)}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {priceTrend === "up" && (
+                        <TrendingUp className="w-6 h-6 text-green-200" />
+                      )}
+                      {priceTrend === "down" && (
+                        <TrendingDown className="w-6 h-6 text-red-200" />
+                      )}
+                      {priceTrend === "stable" && (
+                        <div className="w-6 h-6 rounded-full bg-white/20" />
+                      )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {priceTrend === "up" && (
-                      <TrendingUp className="w-6 h-6 text-green-200" />
-                    )}
-                    {priceTrend === "down" && (
-                      <TrendingDown className="w-6 h-6 text-red-200" />
-                    )}
-                    {priceTrend === "stable" && (
-                      <div className="w-6 h-6 rounded-full bg-white/20" />
-                    )}
-                  </div>
                 </div>
-              </div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <DollarSign className="w-6 h-6 text-blue-600" />
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-blue-100 p-3 rounded-full">
+                      <DollarSign className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-800">
+                        Price Range Analysis
+                      </h3>
+                      <p className="text-gray-600">
+                        Market price fluctuation range
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-800">
-                      Price Range Analysis
-                    </h3>
-                    <p className="text-gray-600">
-                      Market price fluctuation range
-                    </p>
+                  <div className="grid grid-cols-2 gap-6 mb-6">
+                    <div className="text-center p-4 bg-red-50 rounded-xl border border-red-200">
+                      <p className="text-red-600 text-sm font-medium mb-1">
+                        Minimum Price
+                      </p>
+                      <p className="text-2xl font-bold text-red-700">
+                        {formatPrice(data.min_price)}
+                      </p>
+                    </div>
+                    <div className="text-center p-4 bg-green-50 rounded-xl border border-green-200">
+                      <p className="text-green-600 text-sm font-medium mb-1">
+                        Maximum Price
+                      </p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {formatPrice(data.max_price)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className="h-4 bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 rounded-full"></div>
+                    <div className="flex justify-between mt-2 text-sm text-gray-600">
+                      <span>{formatPrice(data.min_price)}</span>
+                      <span className="font-medium">
+                        Range: {formatPrice(data.min_price)} –{" "}
+                        {formatPrice(data.max_price)}
+                      </span>
+                      <span>{formatPrice(data.max_price)}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-6 mb-6">
-                  <div className="text-center p-4 bg-red-50 rounded-xl border border-red-200">
-                    <p className="text-red-600 text-sm font-medium mb-1">
-                      Minimum Price
-                    </p>
-                    <p className="text-2xl font-bold text-red-700">
-                      {formatPrice(data.min_price)}
-                    </p>
-                  </div>
-                  <div className="text-center p-4 bg-green-50 rounded-xl border border-green-200">
-                    <p className="text-green-600 text-sm font-medium mb-1">
-                      Maximum Price
-                    </p>
-                    <p className="text-2xl font-bold text-green-700">
-                      {formatPrice(data.max_price)}
-                    </p>
-                  </div>
-                </div>
-                <div className="relative">
-                  <div className="h-4 bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 rounded-full"></div>
-                  <div className="flex justify-between mt-2 text-sm text-gray-600">
-                    <span>{formatPrice(data.min_price)}</span>
-                    <span className="font-medium">
-                      Range: {formatPrice(data.min_price)} –{" "}
-                      {formatPrice(data.max_price)}
-                    </span>
-                    <span>{formatPrice(data.max_price)}</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-
-      
-          </Card>
-        );
-      })}
-       <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-4 text-center">
-              <p className="text-gray-300">
-                Updated in real-time • For smarter crop decisions
-              </p>
-            </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+      <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-4 text-center">
+        <p className="text-gray-300">
+          Updated in real-time • For smarter crop decisions
+        </p>
+      </div>
     </div>
   );
 };
