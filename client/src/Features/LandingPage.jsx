@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const CropRecommendationLanding = () => {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation Bar */}
+      {/* NavBar */}
       <nav className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -158,7 +158,7 @@ const CropRecommendationLanding = () => {
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
-              <Link to={"/register"}>
+              <Link to={"/weather"}>
                 <button className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-yellow-400 hover:bg-yellow-500">
                   Get Started
                 </button>
